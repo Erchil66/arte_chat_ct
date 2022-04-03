@@ -6,7 +6,14 @@ class LoginSignupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          child: Column(
+            children: [],
+          ),
+        ),
+      ),
     );
   }
 }
