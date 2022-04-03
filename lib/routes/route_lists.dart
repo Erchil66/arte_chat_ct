@@ -1,3 +1,4 @@
+import 'package:chat/binding/binding_user.dart';
 import 'package:chat/routes/route_strings.dart';
 import 'package:chat/views/login_signup/login_signup.dart';
 import 'package:chat/views/login_signup/sign_up.dart';
@@ -11,6 +12,7 @@ class RouteLists {
       transition: Transition.downToUp,
       transitionDuration: 350.milliseconds,
       curve: Curves.ease,
+      binding: BindUser(),
       name: loginview!,
       page: () => const LoginSignupView(),
     ),
@@ -19,6 +21,7 @@ class RouteLists {
       transition: Transition.downToUp,
       transitionDuration: 350.milliseconds,
       curve: Curves.ease,
+      binding: BindUser(),
       name: signupview!,
       page: () => const SignupView(),
     ),

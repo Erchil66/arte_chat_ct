@@ -1,5 +1,5 @@
-const String logo_original = "lib/assets/img/arte_solo-01.png";
-const String inlogo_splash = "lib/assets/img/arte-01.png";
+const String logoOriginal = "lib/assets/img/arte_solo-01.png";
+const String inlogoSplash = "lib/assets/img/arte-01.png";
 
 const String view1 = "lib/assets/img/arte_1.png";
 const String view2 = "lib/assets/img/arte_2.png";
