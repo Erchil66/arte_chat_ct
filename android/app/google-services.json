@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1011768686059",
+    "project_id": "arte-c1bea",
+    "storage_bucket": "arte-c1bea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011768686059:android:a94fc9d5d699589c9195ae",
+        "android_client_info": {
+          "package_name": "ph.arte.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011768686059-rim708r9h79obvg04v62e2do85flm85q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIXmR0KZoT8EWcteKELbByQpn6_GJue90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011768686059-rim708r9h79obvg04v62e2do85flm85q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
