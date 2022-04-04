@@ -4,4 +4,5 @@ import 'package:get/get.dart';
 class MainHomeController extends GetxController {
   // final chatController = Get.find<ChatController>();
   final selectedIndex = 0.obs;
+  selectedIndexTab(int? index) => selectedIndex(index);
 }

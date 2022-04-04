@@ -40,37 +40,41 @@ class MainHomePage extends StatelessWidget {
               //End
             ),
           ),
-          bottomNavigationBar: GNav(
-            //add tabs
-            selectedIndex: controller.selectedIndex.value,
-            //
-            tabBorderRadius: 15,
-            haptic: true,
-            curve: Curves.easeOutExpo,
-            duration: const Duration(milliseconds: 900),
-            gap: 8,
-            activeColor: lightColor,
-            tabBackgroundColor: lightColor!.withOpacity(0.4),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            tabs: const [
-              GButton(
-                icon: LineIcons.home,
-                text: "Home",
-              ),
-              GButton(
-                icon: LineIcons.podcast,
-                text: "Post",
-              ),
-              GButton(
-                icon: LineIcons.layerGroup,
-                text: "Group",
-              ),
-              GButton(
-                icon: LineIcons.crow,
-                text: "Profile",
-              ),
-            ],
-            ////
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: GNav(
+              //add tabs
+              selectedIndex: controller.selectedIndex.value,
+              onTabChange: (index) => controller.selectedIndexTab(index),
+              //
+              tabBorderRadius: 100,
+              haptic: true,
+              curve: Curves.easeOutExpo,
+              duration: const Duration(milliseconds: 350),
+              gap: 8,
+              activeColor: lightColor,
+              tabBackgroundColor: lightColor!.withOpacity(0.4),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              tabs: const [
+                GButton(
+                  icon: LineIcons.home,
+                  text: "Home",
+                ),
+                GButton(
+                  icon: LineIcons.podcast,
+                  text: "Post",
+                ),
+                GButton(
+                  icon: LineIcons.layerGroup,
+                  text: "Group",
+                ),
+                GButton(
+                  icon: LineIcons.crow,
+                  text: "Profile",
+                ),
+              ],
+              ////
+            ),
           ),
         ),
       ),
