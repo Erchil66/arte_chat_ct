@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginSignUpController extends GetxController {
+  // User Model
   final controllerRx = Get.find<ControlleruserRx>();
+  // TextFields
   final logintextController = TextEditingController(),
       passwordtextController = TextEditingController(),
       confirmpasswordtex = TextEditingController(),
@@ -21,21 +23,21 @@ class LoginSignUpController extends GetxController {
   // things first or to load it.
   @override
   void onReady() {
-    redirectCallback();
+    // redirectCallback();
     super.onReady();
   }
 
-  redirectCallback() {
-    Firebaseconstant.firebaseAuth.authStateChanges().listen((user) {
-      if (user != null) {
-        // Get.offNamed(RouteString.mainhomePage!);
-        log("User Not Null");
-      } else {
-        Get.offNamed(loginview!);
-        log("User  Null");
-      }
-    });
-  }
+  // redirectCallback() {
+  //   Firebaseconstant.firebaseAuth.authStateChanges().listen((user) {
+  //     if (user != null) {
+  //       // Get.offNamed(RouteString.mainhomePage!);
+  //       log("User Not Null");
+  //     } else {
+  //       Get.offNamed(loginview!);
+  //       log("User  Null");
+  //     }
+  //   });
+  // }
 
   //# Login
   loginUser() async {
@@ -51,6 +53,9 @@ class LoginSignUpController extends GetxController {
           controllerRx.users(response);
           // final res = controllerRx.users(response);
         }).whenComplete(() => Get.snackbar("User Login", "User Login Success"));
+
+        // Our Next Destination
+        Get.offNamed(mainHome!);
       } on FirebaseAuthException catch (firebaseAuthException) {
         log(firebaseAuthException.message.toString());
       }
