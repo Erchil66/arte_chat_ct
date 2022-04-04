@@ -70,6 +70,7 @@ class MainHomePage extends StatelessWidget {
                 text: "Profile",
               ),
             ],
+            ////
           ),
         ),
       ),
