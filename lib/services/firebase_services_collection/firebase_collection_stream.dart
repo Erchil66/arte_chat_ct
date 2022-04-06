@@ -75,11 +75,11 @@ class Firebaseconstant {
         .add(dataFirstmessage);
   }
 
-  static getUserData(String? uid) async {
+  static Future<UserModel> getUserData(String? uid) async {
     final list =
         await CollectionFireStore.collectionReferenceUsers.doc(uid!).get();
     final Map<String, dynamic> mapMe = list.data() as Map<String, dynamic>;
-    return Users.fromJson(mapMe);
+    return UserModel.fromJson(mapMe);
   }
 
   static getownChat(String? uid) async {

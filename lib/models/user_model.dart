@@ -1,34 +1,40 @@
 // To parse this JSON data, do
 //
-//     final users = usersFromJson(jsonString);
+//     final userModel = userModelFromJson(jsonString);
 
 import 'dart:convert';
 
-Users usersFromJson(String str) => Users.fromJson(json.decode(str));
+UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
-String usersToJson(Users data) => json.encode(data.toJson());
+String userModelToJson(UserModel data) => json.encode(data.toJson());
 
-class Users {
-  Users({
+class UserModel {
+  UserModel({
     this.details,
-    this.photo,
+    this.photos,
+    this.active,
+    this.online,
     this.email,
     this.userUid,
     this.username,
   });
 
   final Details? details;
-  final List<String>? photo;
+  final List<String>? photos;
+  final String? active;
+  final String? online;
   final String? email;
   final String? userUid;
   final String? username;
 
-  factory Users.fromJson(Map<String, dynamic> json) => Users(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         details:
             json["details"] == null ? null : Details.fromJson(json["details"]),
-        photo: json["photo"] == null
+        photos: json["photos"] == null
             ? null
-            : List<String>.from(json["photo"].map((x) => x)),
+            : List<String>.from(json["photos"].map((x) => x)),
+        active: json["active"] == null ? null : json["active"]!,
+        online: json["online"] == null ? null : json["online"]!,
         email: json["email"] == null ? null : json["email"]!,
         userUid: json["user_uid"] == null ? null : json["user_uid"]!,
         username: json["username"] == null ? null : json["username"]!,
@@ -36,8 +42,10 @@ class Users {
 
   Map<String, dynamic> toJson() => {
         "details": details == null ? null : details!.toJson(),
-        "photo":
-            photo == null ? null : List<dynamic>.from(photo!.map((x) => x)),
+        "photos":
+            photos == null ? null : List<dynamic>.from(photos!.map((x) => x)),
+        "active": active == null ? null : active!,
+        "online": online == null ? null : online!,
         "email": email == null ? null : email!,
         "user_uid": userUid == null ? null : userUid!,
         "username": username == null ? null : username!,
@@ -46,32 +54,32 @@ class Users {
 
 class Details {
   Details({
-    this.address,
-    this.age,
     this.firstname,
     this.lastname,
+    this.age,
+    this.address,
     this.profilePic,
   });
 
-  final String? address;
-  final String? age;
   final String? firstname;
   final String? lastname;
+  final String? age;
+  final String? address;
   final String? profilePic;
 
   factory Details.fromJson(Map<String, dynamic> json) => Details(
-        address: json["address"] == null ? null : json["address"]!,
-        age: json["age"] == null ? null : json["age"]!,
         firstname: json["firstname"] == null ? null : json["firstname"]!,
         lastname: json["lastname"] == null ? null : json["lastname"]!,
+        age: json["age"] == null ? null : json["age"]!,
+        address: json["address"] == null ? null : json["address"]!,
         profilePic: json["profilePic"] == null ? null : json["profilePic"]!,
       );
 
   Map<String, dynamic> toJson() => {
-        "address": address == null ? null : address,
-        "age": age == null ? null : age,
-        "firstname": firstname == null ? null : firstname,
-        "lastname": lastname == null ? null : lastname,
-        "profilePic": profilePic == null ? null : profilePic,
+        "firstname": firstname == null ? null : firstname!,
+        "lastname": lastname == null ? null : lastname!,
+        "age": age == null ? null : age!,
+        "address": address == null ? null : address!,
+        "profilePic": profilePic == null ? null : profilePic!,
       };
 }

@@ -4,7 +4,7 @@ import 'package:chat/services/firebase_services_collection/firebase_collection_s
 import 'package:get/get.dart';
 
 class ControlleruserRx extends GetxController {
-  final Rx<Users> users = Users().obs;
+  final Rx<UserModel> users = UserModel().obs;
 
   signOutUser() async {
     Firebaseconstant.firebaseAuth
