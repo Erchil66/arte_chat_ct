@@ -12,7 +12,7 @@ class ChatViews extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: decentWhite,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(
@@ -22,12 +22,13 @@ class ChatViews extends GetView<ChatController> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ProfileAppbar(
+                const ProfileAppbar(
                   imageNetwork: null,
                   color: null,
                   name: "Arte",
                   status: "online",
                 ),
+
                 // ButtonWithStyle(
                 //   width: 50.w,
                 //   height: 7.h,

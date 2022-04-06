@@ -21,7 +21,7 @@ class MainHomePage extends StatelessWidget {
       // Add OBX
       child: Obx(
         () => Scaffold(
-          backgroundColor: backgroundColor,
+          backgroundColor: decentWhite,
           body: SafeArea(
             child: IndexedStack(
               // Selected Number
@@ -36,39 +36,46 @@ class MainHomePage extends StatelessWidget {
             ),
           ),
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: GNav(
-              //add tabs
-              selectedIndex: controller.selectedIndex.value,
-              onTabChange: (index) => controller.selectedIndexTab(index),
-              //
-              tabBorderRadius: 100,
-              haptic: true,
-              curve: Curves.easeOutExpo,
-              duration: const Duration(milliseconds: 350),
-              gap: 8,
-              activeColor: lightColor,
-              tabBackgroundColor: lightColor!.withOpacity(0.4),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              tabs: const [
-                GButton(
-                  icon: LineIcons.home,
-                  text: "Home",
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Container(
+              color: decentWhite,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: GNav(
+                  //add tabs
+                  selectedIndex: controller.selectedIndex.value,
+                  onTabChange: (index) => controller.selectedIndexTab(index),
+                  //
+                  tabBorderRadius: 100,
+                  haptic: true,
+                  curve: Curves.easeOutExpo,
+                  duration: const Duration(milliseconds: 350),
+                  gap: 8,
+                  activeColor: lightColor,
+                  tabBackgroundColor: lightColor!.withOpacity(0.4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  tabs: const [
+                    GButton(
+                      icon: LineIcons.home,
+                      text: "Home",
+                    ),
+                    GButton(
+                      icon: LineIcons.podcast,
+                      text: "Post",
+                    ),
+                    GButton(
+                      icon: LineIcons.layerGroup,
+                      text: "Group",
+                    ),
+                    GButton(
+                      icon: LineIcons.crow,
+                      text: "Profile",
+                    ),
+                  ],
+                  ////
                 ),
-                GButton(
-                  icon: LineIcons.podcast,
-                  text: "Post",
-                ),
-                GButton(
-                  icon: LineIcons.layerGroup,
-                  text: "Group",
-                ),
-                GButton(
-                  icon: LineIcons.crow,
-                  text: "Profile",
-                ),
-              ],
-              ////
+              ),
             ),
           ),
         ),

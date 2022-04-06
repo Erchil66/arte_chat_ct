@@ -19,7 +19,7 @@ class LoginSignupView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(LoginSignUpController());
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: decentWhite,
       body: SafeArea(
         child: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
