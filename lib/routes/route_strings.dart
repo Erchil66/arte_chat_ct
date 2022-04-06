@@ -5,3 +5,4 @@ const String? chatpage = "/chats";
 const String? grouppage = "/group";
 const String? postpage = "/post";
 const String? profilepage = "/profile";
+const String? chat_logs = "/messages";

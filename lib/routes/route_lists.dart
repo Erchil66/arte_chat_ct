@@ -3,6 +3,7 @@ import 'package:chat/binding/binding_main_home.dart';
 import 'package:chat/binding/binding_user.dart';
 import 'package:chat/routes/route_strings.dart';
 import 'package:chat/views/chat/chat.dart';
+import 'package:chat/views/chat/chat_page/chats_details_logs.dart';
 import 'package:chat/views/home_view/main_home.dart';
 import 'package:chat/views/login_signup/login_signup.dart';
 import 'package:chat/views/login_signup/sign_up.dart';
@@ -48,8 +49,8 @@ class RouteLists {
       // From Here
       binding: BindingChat(),
       // Put Always Exclamatory !
-      name: mainHome!,
-      page: () => const ChatViews(),
+      name: chat_logs!,
+      page: () => const ChatpageLogs(),
     ),
   ];
 }

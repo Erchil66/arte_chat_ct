@@ -13,7 +13,23 @@ class GroupController extends GetxController {
 
   getUsers() async {
     final result = await Firebaseconstant.getUser();
+    result.removeWhere((e) =>
+        e.userUid!.contains(Firebaseconstant.firebaseAuth.currentUser!.uid));
     userlist.assignAll(result);
     update();
+  }
+
+  actionToAdd(
+      {String? usernamex,
+      String? lastnamex,
+      String? fistnamex,
+      String? uiduser}) async {
+    await Firebaseconstant.addUsertoChat(
+        username: usernamex ?? "",
+        lastname: lastnamex ?? "",
+        firstname: fistnamex ?? "",
+        type: "0",
+        uidofUser: uiduser!,
+        ownUID: Firebaseconstant.firebaseAuth.currentUser!.uid);
   }
 }

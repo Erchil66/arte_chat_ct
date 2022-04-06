@@ -1,7 +1,12 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:chat/constants/colors.dart';
 import 'package:chat/constants/fonts.dart';
 import 'package:chat/controllers/chat_controller.dart';
 import 'package:chat/models/own_chat_view_model.dart';
+import 'package:chat/models/user_model.dart';
+import 'package:chat/routes/route_strings.dart';
 import 'package:chat/widget/buttons/button_ct.dart';
 import 'package:chat/widget/handler/chat_handler.dart';
 import 'package:chat/widget/profile_appbar/profile_bar.dart';
@@ -32,13 +37,21 @@ class ChatViews extends GetView<ChatController> {
                       ProfileAppbar(
                         imageNetwork: null,
                         color: null,
-                        name: controller.auth.currentUser!.email,
-                        // name: controller.controlRx.users.value.details!
-                        //             .firstname!.isEmpty &&
-                        //         controller.controlRx.users.value.details!
-                        //             .lastname!.isEmpty
+                        name: controller.controlRx.users.value.username ?? "",
+                        // name: controller.auth.currentUser!.email,
+                        // name: controller.controlRx.users.value.details != null
                         //     ? controller.controlRx.users.value.username
-                        //     : "${controller.controlRx.users.value.details!.firstname} ${controller.controlRx.users.value.details!.lastname}",
+                        //     : controller.controlRx.users.value.details!
+                        //                 .firstname!.isEmpty &&
+                        //             controller.controlRx.users.value.details!
+                        //                 .lastname!.isEmpty
+                        //         ? controller.controlRx.users.value.username
+                        //         : controller.controlRx.users.value.details!
+                        //                     .firstname!.isNotEmpty &&
+                        //                 controller.controlRx.users.value
+                        //                     .details!.lastname!.isNotEmpty
+                        //             ? "${controller.controlRx.users.value.details!.firstname} ${controller.controlRx.users.value.details!.lastname}"
+                        //             : controller.auth.currentUser!.email,
                         status: "online",
                       ),
                       SizedBox(
@@ -86,7 +99,7 @@ class ChatViews extends GetView<ChatController> {
                           controller: controller.tabController,
                           children: [
                             controller.chatmodel.isEmpty
-                                ? const CircularProgressIndicator()
+                                ? const SizedBox.shrink()
                                 : ListView.builder(
                                     itemCount: controller.chatmodel.length,
                                     shrinkWrap: true,
@@ -94,10 +107,33 @@ class ChatViews extends GetView<ChatController> {
                                         ScrollViewKeyboardDismissBehavior
                                             .onDrag,
                                     itemBuilder: (context, index) =>
-                                        ChathandlerView(
-                                      label:
-                                          controller.chatmodel[index].username,
-                                    ),
+                                        FutureBuilder(
+                                            future: controller.getModel(
+                                                controller.chatmodel[index]
+                                                    .participants),
+                                            builder: (context,
+                                                AsyncSnapshot<UserModel>
+                                                    async) {
+                                              if (async.hasData) {
+                                                return ChathandlerView(
+                                                  press: () async =>
+                                                      Get.toNamed(chat_logs!,
+                                                          parameters: {
+                                                        "id": controller
+                                                            .chatmodel[index]
+                                                            .participants!
+                                                            .replaceAll(
+                                                                ",", "-"),
+                                                        "name": async
+                                                            .data!.username
+                                                            .toString()
+                                                      }),
+                                                  label: async.data!.username,
+                                                );
+                                              } else {
+                                                return const SizedBox.shrink();
+                                              }
+                                            }),
                                   ),
                             Container(
                               height: MediaQuery.of(context).size.height,

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:chat/models/messages_model.dart';
 import 'package:chat/models/own_chat_view_model.dart';
 import 'package:chat/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,40 +47,71 @@ class Firebaseconstant {
     return result;
   }
 
-  static addTouserChatDummy() {
-    // Map data
-    final dataChat = {
-      "participants":
-          "QJwzy0O2BzMkjb4UPtjsg7y6hDD3,QJwzy0O2BzMkjb4UPtjsg7y6hDD3",
-      "username": "Ali",
-      "firstname": "",
-      "lastname": "",
-      "receiver": "QJwzy0O2BzMkjb4UPtjsg7y6hDD3",
-      "type_room": "0",
+  static addUsertoChat(
+      {String? uidofUser,
+      String? ownUID,
+      String? username,
+      String? firstname,
+      String? lastname,
+      String? type}) async {
+    // type = 0 - individual type = 1 groups
+    final dataMap = {
+      "participants": "$uidofUser,$ownUID",
+      "username": username ?? "",
+      "firstname": firstname ?? "",
+      "lastname": lastname ?? "",
+      "receiver": ownUID,
+      "type_room": type,
     };
-    // Map Message
-    final dataFirstmessage = {
-      "from": "QJwzy0O2BzMkjb4UPtjsg7y6hDD3",
+
+    final datasayHello = {
+      "from": ownUID,
       "timeStamp": DateTime.now().millisecondsSinceEpoch.toString(),
-      "message": "helo",
+      "message": "Hi! want to chat",
       "images": [],
       "type": "",
       "dateTime": DateFormat("d MMM yyyy").add_jms().format(DateTime.now()),
-      "to": "QJwzy0O2BzMkjb4UPtjsg7y6hDD3"
+      "to": uidofUser
     };
-    //Collection to create the chatroom
-    final result = CollectionFireStore.collectionChat
-        .doc("QJwzy0O2BzMkjb4UPtjsg7y6hDD3-QJwzy0O2BzMkjb4UPtjsg7y6hDD3");
-
-    // Colection Runtraction
-    firestore.runTransaction((transaction) async {
-      transaction.set(result, dataChat);
-    });
-
+    await CollectionFireStore.collectionChat
+        .doc("$uidofUser-$ownUID")
+        .set(dataMap);
+    // From Here
+    // Make a path
     CollectionFireStore.collectionChat
-        .doc("QJwzy0O2BzMkjb4UPtjsg7y6hDD3-QJwzy0O2BzMkjb4UPtjsg7y6hDD3")
+        .doc("$uidofUser-$ownUID")
         .collection("messages")
-        .add(dataFirstmessage);
+        .add(datasayHello);
+  }
+
+  static sendMessage(
+      {String? userUid,
+      String? chatRoomId,
+      String? message,
+      List<String>? images}) async {
+    final data = {
+      "from": firebaseAuth.currentUser!.uid,
+      "timeStamp": DateTime.now().millisecondsSinceEpoch.toString(),
+      "message": message,
+      "images": [],
+      "type": "",
+      "dateTime": DateFormat("d MMM yyyy").add_jms().format(DateTime.now()),
+      "to": userUid
+    };
+
+    await CollectionFireStore.collectionChat
+        .doc(chatRoomId!)
+        .collection("messages")
+        .add(data);
+  }
+
+  ////////////////////////////////////////////////////FOR MODELS//////////////////////////////////////////////
+
+  static getSingleName(String? uid) async {
+    final result =
+        await CollectionFireStore.collectionReferenceUsers.doc(uid).get();
+    final response = result.data() as Map<String, dynamic>;
+    return response['username'].toString();
   }
 
   static Future<UserModel> getUserData(String? uid) async {
@@ -87,6 +119,13 @@ class Firebaseconstant {
         await CollectionFireStore.collectionReferenceUsers.doc(uid!).get();
     final Map<String, dynamic> mapMe = list.data() as Map<String, dynamic>;
     return UserModel.fromJson(mapMe);
+  }
+
+  static dynamicX(String? uid) async {
+    final list =
+        await CollectionFireStore.collectionReferenceUsers.doc(uid!).get();
+    final Map<String, dynamic> mapMe = list.data() as Map<String, dynamic>;
+    return mapMe;
   }
 
   static Future<List<ChatModelView>> getownChat(String? uid) async {
@@ -100,6 +139,10 @@ class Firebaseconstant {
         listOwn.add(obj);
       }
     });
+    // [ instance of chatmodel , instance of chatmodel ]
+    // {
+    //  "map" :"map"
+    // }
     return listOwn.map((e) => ChatModelView.fromJson(e)).toList();
   }
 
@@ -115,5 +158,31 @@ class Firebaseconstant {
     });
 
     return list.map((e) => UserModel.fromJson(e)).toList();
+  }
+
+  static Future<ChatModelView> getDetailChat(String? uidofUser) async {
+    final mapData =
+        await CollectionFireStore.collectionChat.doc(uidofUser!).get();
+    //log(mapData.data().toString());
+    final map = mapData.data() as Map<String, dynamic>;
+    return ChatModelView.fromJson(map);
+  }
+
+  static Future<List<MessageViewModel>> getMessages(String? uid) async {
+    //
+    List<dynamic> list = [];
+    //
+    await CollectionFireStore.collectionChat
+        .doc(uid!)
+        .collection("messages")
+        .get()
+        .then((value) {
+      for (var x in value.docs) {
+        final Map<String, dynamic> obj = x.data();
+        list.add(obj);
+      }
+    });
+
+    return list.map((e) => MessageViewModel.fromJson(e)).toList();
   }
 }

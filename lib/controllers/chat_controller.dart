@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:chat/controllers/controller_user_model.dart';
 import 'package:chat/models/own_chat_view_model.dart';
+import 'package:chat/models/user_model.dart';
 import 'package:chat/services/firebase_services_collection/firebase_collection_stream.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,5 +37,25 @@ class ChatController extends GetxController
     final result = await Firebaseconstant.getownChat(auth.currentUser!.uid);
     chatmodel.assignAll(result);
     update();
+  }
+
+  getnameFromIt(String? uids) async {
+    final string = "".obs;
+    final splitIt = uids!.split(",").toList();
+    final whereNotMyId = splitIt
+        .where((e) => e != Firebaseconstant.firebaseAuth.currentUser!.uid);
+    final result =
+        await Firebaseconstant.getSingleName(whereNotMyId.first.toString());
+    string(await result);
+    return string.value;
+  }
+
+  Future<UserModel> getModel(String? uids) async {
+    final splitIt = uids!.split(",").toList();
+    final whereNotMyId = splitIt
+        .where((e) => e != Firebaseconstant.firebaseAuth.currentUser!.uid);
+    final result =
+        await Firebaseconstant.getUserData(whereNotMyId.first.toString());
+    return result;
   }
 }

@@ -45,7 +45,12 @@ class GroupViews extends GetView<GroupController> {
                               height: 4.h,
                               backColor: lightColor,
                               label: "Add Me",
-                              press: () {},
+                              press: () => controller.actionToAdd(
+                                  usernamex:
+                                      controller.userlist[index].username!,
+                                  uiduser: controller.userlist[index].userUid!,
+                                  fistnamex: "",
+                                  lastnamex: ""),
                               textColor: backgroundColor,
                               elevate: 1,
                               colorSide: lightColor,
