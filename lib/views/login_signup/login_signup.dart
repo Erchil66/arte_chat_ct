@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:chat/constants/colors.dart';
 import 'package:chat/constants/fonts.dart';
 import 'package:chat/constants/jpeg_jpe_png.dart';

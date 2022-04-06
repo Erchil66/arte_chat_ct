@@ -23,21 +23,16 @@ class MainHomePage extends StatelessWidget {
         () => Scaffold(
           backgroundColor: backgroundColor,
           body: SafeArea(
-            child: SingleChildScrollView(
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              //Index Files
-              child: IndexedStack(
-                // Selected Number
-                index: controller.selectedIndex.value,
-                children: const [
-                  // Our Pages
-                  ChatViews(),
-                  PostViews(),
-                  GroupViews(),
-                  ProfileViews(),
-                ],
-              ),
-              //End
+            child: IndexedStack(
+              // Selected Number
+              index: controller.selectedIndex.value,
+              children: const [
+                // Our Pages
+                ChatViews(),
+                PostViews(),
+                GroupViews(),
+                ProfileViews(),
+              ],
             ),
           ),
           bottomNavigationBar: Padding(
