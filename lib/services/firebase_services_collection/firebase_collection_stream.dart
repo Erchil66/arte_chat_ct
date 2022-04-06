@@ -17,6 +17,7 @@ class CollectionFireStore {
 }
 
 class Firebaseconstant {
+  //
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
@@ -88,16 +89,31 @@ class Firebaseconstant {
     return UserModel.fromJson(mapMe);
   }
 
-  static getownChat(String? uid) async {
-    final list = await CollectionFireStore.collectionChat.get().then((value) {
+  static Future<List<ChatModelView>> getownChat(String? uid) async {
+    // The We will put th raw data inside
+    List<dynamic> listOwn = [];
+    await CollectionFireStore.collectionChat.get().then((value) {
       // For loop
       for (var element in value.docs) {
-        final List<dynamic> obj = [element.data() as Map<String, dynamic>];
-        final List<dynamic> listOwn = obj
-            .where((e) => e['participants'].toString().contains(uid!))
-            .toList();
-        return listOwn;
+        final Map<String, dynamic> obj = element.data() as Map<String, dynamic>;
+        // Since map is map add them to list
+        listOwn.add(obj);
       }
     });
+    return listOwn.map((e) => ChatModelView.fromJson(e)).toList();
+  }
+
+  static Future<List<UserModel>> getUser() async {
+    //
+    List<dynamic> list = [];
+    //
+    await CollectionFireStore.collectionReferenceUsers.get().then((value) {
+      for (var user in value.docs) {
+        final Map<String, dynamic> obj = user.data() as Map<String, dynamic>;
+        list.add(obj);
+      }
+    });
+
+    return list.map((e) => UserModel.fromJson(e)).toList();
   }
 }

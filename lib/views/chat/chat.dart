@@ -1,7 +1,9 @@
 import 'package:chat/constants/colors.dart';
 import 'package:chat/constants/fonts.dart';
 import 'package:chat/controllers/chat_controller.dart';
+import 'package:chat/models/own_chat_view_model.dart';
 import 'package:chat/widget/buttons/button_ct.dart';
+import 'package:chat/widget/handler/chat_handler.dart';
 import 'package:chat/widget/profile_appbar/profile_bar.dart';
 import 'package:chat/widget/textfields/textfield_searcg_bar.dart';
 import 'package:flutter/material.dart';
@@ -83,10 +85,20 @@ class ChatViews extends GetView<ChatController> {
                         child: TabBarView(
                           controller: controller.tabController,
                           children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height,
-                              //color: lightColor,
-                            ),
+                            controller.chatmodel.isEmpty
+                                ? const CircularProgressIndicator()
+                                : ListView.builder(
+                                    itemCount: controller.chatmodel.length,
+                                    shrinkWrap: true,
+                                    keyboardDismissBehavior:
+                                        ScrollViewKeyboardDismissBehavior
+                                            .onDrag,
+                                    itemBuilder: (context, index) =>
+                                        ChathandlerView(
+                                      label:
+                                          controller.chatmodel[index].username,
+                                    ),
+                                  ),
                             Container(
                               height: MediaQuery.of(context).size.height,
                               // color: opacityBlueish,
@@ -94,17 +106,18 @@ class ChatViews extends GetView<ChatController> {
                           ],
                         ),
                       ),
+
                       //Here
-                      ButtonWithStyle(
-                        width: 50.w,
-                        height: 7.h,
-                        backColor: lightColor,
-                        label: "Get In",
-                        press: () => controller.getOwnChats(),
-                        textColor: backgroundColor,
-                        elevate: 1,
-                        colorSide: lightColor,
-                      ),
+                      // ButtonWithStyle(
+                      //   width: 50.w,
+                      //   height: 7.h,
+                      //   backColor: lightColor,
+                      //   label: "Get In",
+                      //   press: () => controller.getOwnChats(),
+                      //   textColor: backgroundColor,
+                      //   elevate: 1,
+                      //   colorSide: lightColor,
+                      // ),
                     ],
                   ),
                 ),

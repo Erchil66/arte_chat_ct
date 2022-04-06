@@ -13,10 +13,12 @@ class ChatController extends GetxController
   late TabController tabController;
   final TextEditingController search = TextEditingController();
   final controlRx = Get.find<ControlleruserRx>();
+  final List<ChatModelView> chatmodel = <ChatModelView>[].obs;
 
   @override
   void onInit() {
     getUserDetails();
+    getOwnChats();
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
     super.onInit();
@@ -27,9 +29,12 @@ class ChatController extends GetxController
   getUserDetails() async {
     final result = await Firebaseconstant.getUserData(auth.currentUser!.uid);
     controlRx.users(result);
+    update();
   }
 
   getOwnChats() async {
-    await Firebaseconstant.getownChat(auth.currentUser!.uid);
+    final result = await Firebaseconstant.getownChat(auth.currentUser!.uid);
+    chatmodel.assignAll(result);
+    update();
   }
 }
