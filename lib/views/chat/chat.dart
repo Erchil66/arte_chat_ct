@@ -30,12 +30,13 @@ class ChatViews extends GetView<ChatController> {
                       ProfileAppbar(
                         imageNetwork: null,
                         color: null,
-                        name: controller.controlRx.users.value.details!
-                                    .firstname!.isEmpty &&
-                                controller.controlRx.users.value.details!
-                                    .lastname!.isEmpty
-                            ? controller.controlRx.users.value.username
-                            : "${controller.controlRx.users.value.details!.firstname} ${controller.controlRx.users.value.details!.lastname}",
+                        name: controller.auth.currentUser!.email,
+                        // name: controller.controlRx.users.value.details!
+                        //             .firstname!.isEmpty &&
+                        //         controller.controlRx.users.value.details!
+                        //             .lastname!.isEmpty
+                        //     ? controller.controlRx.users.value.username
+                        //     : "${controller.controlRx.users.value.details!.firstname} ${controller.controlRx.users.value.details!.lastname}",
                         status: "online",
                       ),
                       SizedBox(
@@ -92,6 +93,17 @@ class ChatViews extends GetView<ChatController> {
                             ),
                           ],
                         ),
+                      ),
+                      //Here
+                      ButtonWithStyle(
+                        width: 50.w,
+                        height: 7.h,
+                        backColor: lightColor,
+                        label: "Get In",
+                        press: () => controller.getOwnChats(),
+                        textColor: backgroundColor,
+                        elevate: 1,
+                        colorSide: lightColor,
                       ),
                     ],
                   ),

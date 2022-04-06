@@ -29,5 +29,7 @@ class ChatController extends GetxController
     controlRx.users(result);
   }
 
-  getOwnChats() async {}
+  getOwnChats() async {
+    await Firebaseconstant.getownChat(auth.currentUser!.uid);
+  }
 }

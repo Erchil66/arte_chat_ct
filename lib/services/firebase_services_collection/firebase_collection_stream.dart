@@ -4,6 +4,7 @@ import 'package:chat/models/own_chat_view_model.dart';
 import 'package:chat/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class CollectionFireStore {
@@ -45,17 +46,19 @@ class Firebaseconstant {
   }
 
   static addTouserChatDummy() {
+    // Map data
     final dataChat = {
       "participants":
-          "0kGC6Rp9xmSYr9RTiAN0qwhIhqI3,QJwzy0O2BzMkjb4UPtjsg7y6hDD3",
+          "QJwzy0O2BzMkjb4UPtjsg7y6hDD3,QJwzy0O2BzMkjb4UPtjsg7y6hDD3",
       "username": "Ali",
       "firstname": "",
       "lastname": "",
-      "receiver": "0kGC6Rp9xmSYr9RTiAN0qwhIhqI3",
+      "receiver": "QJwzy0O2BzMkjb4UPtjsg7y6hDD3",
       "type_room": "0",
     };
+    // Map Message
     final dataFirstmessage = {
-      "from": "0kGC6Rp9xmSYr9RTiAN0qwhIhqI3",
+      "from": "QJwzy0O2BzMkjb4UPtjsg7y6hDD3",
       "timeStamp": DateTime.now().millisecondsSinceEpoch.toString(),
       "message": "helo",
       "images": [],
@@ -63,14 +66,17 @@ class Firebaseconstant {
       "dateTime": DateFormat("d MMM yyyy").add_jms().format(DateTime.now()),
       "to": "QJwzy0O2BzMkjb4UPtjsg7y6hDD3"
     };
+    //Collection to create the chatroom
     final result = CollectionFireStore.collectionChat
-        .doc("0kGC6Rp9xmSYr9RTiAN0qwhIhqI3-QJwzy0O2BzMkjb4UPtjsg7y6hDD3");
+        .doc("QJwzy0O2BzMkjb4UPtjsg7y6hDD3-QJwzy0O2BzMkjb4UPtjsg7y6hDD3");
 
+    // Colection Runtraction
     firestore.runTransaction((transaction) async {
       transaction.set(result, dataChat);
     });
+
     CollectionFireStore.collectionChat
-        .doc("0kGC6Rp9xmSYr9RTiAN0qwhIhqI3-QJwzy0O2BzMkjb4UPtjsg7y6hDD3")
+        .doc("QJwzy0O2BzMkjb4UPtjsg7y6hDD3-QJwzy0O2BzMkjb4UPtjsg7y6hDD3")
         .collection("messages")
         .add(dataFirstmessage);
   }
@@ -84,10 +90,13 @@ class Firebaseconstant {
 
   static getownChat(String? uid) async {
     final list = await CollectionFireStore.collectionChat.get().then((value) {
+      // For loop
       for (var element in value.docs) {
         final List<dynamic> obj = [element.data() as Map<String, dynamic>];
-        log(obj.toString());
-        return obj;
+        final List<dynamic> listOwn = obj
+            .where((e) => e['participants'].toString().contains(uid!))
+            .toList();
+        return listOwn;
       }
     });
   }
