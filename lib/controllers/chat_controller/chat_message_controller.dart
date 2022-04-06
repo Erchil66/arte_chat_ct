@@ -5,6 +5,7 @@ import 'package:chat/models/own_chat_view_model.dart';
 import 'package:chat/models/user_model.dart';
 import 'package:chat/services/firebase_services_collection/firebase_collection_stream.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -77,7 +78,17 @@ class ChatMessageController extends GetxController {
       List<MessageViewModel> messagex =
           list.map((e) => MessageViewModel.fromJson(e)).toList();
       message.addAll(messagex);
-
+      if (messagex.isNotEmpty) {
+        SchedulerBinding.instance!.addPostFrameCallback((_) {
+          if (scroll.hasClients) {
+            scroll.animateTo(
+              scroll.position.maxScrollExtent,
+              curve: Curves.easeOut,
+              duration: const Duration(milliseconds: 200),
+            );
+          }
+        });
+      }
       update();
     });
   }

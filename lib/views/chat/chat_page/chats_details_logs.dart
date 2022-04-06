@@ -65,6 +65,7 @@ class ChatpageLogs extends StatelessWidget {
                                   GroupedListView<MessageViewModel, DateTime>(
                                 shrinkWrap: true,
                                 controller: controller.scroll,
+                                physics: const BouncingScrollPhysics(),
                                 elements: controller.message,
                                 groupBy: (e) {
                                   var par = DateFormat("dd MMM yyyy hh:mm:ss a")
