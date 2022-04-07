@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:sizer/sizer.dart';
 
 class MainHomePage extends StatelessWidget {
   const MainHomePage({Key? key}) : super(key: key);
@@ -38,9 +39,10 @@ class MainHomePage extends StatelessWidget {
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Container(
+              height: 10.h,
               color: decentWhite,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -55,8 +57,8 @@ class MainHomePage extends StatelessWidget {
                         curve: Curves.easeOutExpo,
                         duration: const Duration(milliseconds: 350),
                         gap: 8,
-                        activeColor: lightColor,
-                        tabBackgroundColor: lightColor!.withOpacity(0.4),
+                        activeColor: darkishColor,
+                        tabBackgroundColor: opacityBlueish!,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 5),
                         tabs: const [

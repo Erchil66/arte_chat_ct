@@ -70,78 +70,78 @@ class ChatViews extends GetView<ChatController> {
                       SizedBox(
                         height: 3.h,
                       ),
-                      DefaultTabController(
-                        length: 2,
-                        child: TabBar(
-                          controller: controller.tabController,
-                          indicatorColor: lightColor!,
-                          labelColor: black,
-                          labelStyle: TextStyle(
-                            fontFamily: metroRegular,
-                            fontSize: 9.sp,
-                            color: black,
-                          ),
-                          tabs: const [
-                            Tab(
-                              text: "Chats",
-                            ),
-                            Tab(
-                              text: "Groups",
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 1.h,
-                      ),
-                      Expanded(
-                        child: TabBarView(
-                          controller: controller.tabController,
-                          children: [
-                            controller.chatmodel.isEmpty
-                                ? const SizedBox.shrink()
-                                : ListView.builder(
-                                    itemCount: controller.chatmodel.length,
-                                    shrinkWrap: true,
-                                    keyboardDismissBehavior:
-                                        ScrollViewKeyboardDismissBehavior
-                                            .onDrag,
-                                    itemBuilder: (context, index) =>
-                                        FutureBuilder(
-                                            future: controller.getModel(
-                                                controller.chatmodel[index]
-                                                    .participants),
-                                            builder: (context,
-                                                AsyncSnapshot<UserModel>
-                                                    async) {
-                                              if (async.hasData) {
-                                                return ChathandlerView(
-                                                  press: () async =>
-                                                      Get.toNamed(chat_logs!,
-                                                          parameters: {
-                                                        "id": controller
-                                                            .chatmodel[index]
-                                                            .participants!
-                                                            .replaceAll(
-                                                                ",", "-"),
-                                                        "name": async
-                                                            .data!.username
-                                                            .toString()
-                                                      }),
-                                                  label: async.data!.username,
-                                                );
-                                              } else {
-                                                return const SizedBox.shrink();
-                                              }
-                                            }),
-                                  ),
-                            Container(
-                              height: MediaQuery.of(context).size.height,
-                              // color: opacityBlueish,
-                            ),
-                          ],
-                        ),
-                      ),
+                      // DefaultTabController(
+                      //   length: 2,
+                      //   child: TabBar(
+                      //     controller: controller.tabController,
+                      //     indicatorColor: lightColor!,
+                      //     labelColor: black,
+                      //     labelStyle: TextStyle(
+                      //       fontFamily: metroRegular,
+                      //       fontSize: 9.sp,
+                      //       color: black,
+                      //     ),
+                      //     tabs: const [
+                      //       Tab(
+                      //         text: "Chats",
+                      //       ),
+                      //       Tab(
+                      //         text: "Groups",
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 1.h,
+                      // ),
+                      // Expanded(
+                      //   child: TabBarView(
+                      //     controller: controller.tabController,
+                      //     children: [
+                      //       controller.chatmodel.isEmpty
+                      //           ? const SizedBox.shrink()
+                      //           : ListView.builder(
+                      //               itemCount: controller.chatmodel.length,
+                      //               shrinkWrap: true,
+                      //               keyboardDismissBehavior:
+                      //                   ScrollViewKeyboardDismissBehavior
+                      //                       .onDrag,
+                      //               itemBuilder: (context, index) =>
+                      //                   FutureBuilder(
+                      //                       future: controller.getModel(
+                      //                           controller.chatmodel[index]
+                      //                               .participants),
+                      //                       builder: (context,
+                      //                           AsyncSnapshot<UserModel>
+                      //                               async) {
+                      //                         if (async.hasData) {
+                      //                           return ChathandlerView(
+                      //                             press: () async =>
+                      //                                 Get.toNamed(chat_logs!,
+                      //                                     parameters: {
+                      //                                   "id": controller
+                      //                                       .chatmodel[index]
+                      //                                       .participants!
+                      //                                       .replaceAll(
+                      //                                           ",", "-"),
+                      //                                   "name": async
+                      //                                       .data!.username
+                      //                                       .toString()
+                      //                                 }),
+                      //                             label: async.data!.username,
+                      //                           );
+                      //                         } else {
+                      //                           return const SizedBox.shrink();
+                      //                         }
+                      //                       }),
+                      //             ),
+                      //       Container(
+                      //         height: MediaQuery.of(context).size.height,
+                      //         // color: opacityBlueish,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
 
                       //Here
                       // ButtonWithStyle(

@@ -41,7 +41,7 @@ class ChatpageLogs extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                    color: colorlessOther!,
+                    color: opacityBlueish!,
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(35),
                         topRight: Radius.circular(35))),

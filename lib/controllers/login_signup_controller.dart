@@ -52,8 +52,7 @@ class LoginSignUpController extends GetxController {
           final response = await Firebaseconstant.getUserData(value.user!.uid);
           controllerRx.users(response);
           // final res = controllerRx.users(response);
-        }).whenComplete(() => Get.snackbar("User Login", "User Login Success"));
-
+        });
         // Our Next Destination
         Get.offNamed(mainHome!);
       } on FirebaseAuthException catch (firebaseAuthException) {
